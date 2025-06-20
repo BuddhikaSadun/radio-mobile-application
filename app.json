@@ -1,4 +1,7 @@
 {
   "name": "SethFM",
-  "displayName": "SethFM"
+  "displayName": "SethFM",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3373184600332761~7854240567"
+  }
 }
