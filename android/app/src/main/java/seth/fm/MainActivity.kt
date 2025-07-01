@@ -1,4 +1,4 @@
-package com.sethfm
+package seth.fm
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity
