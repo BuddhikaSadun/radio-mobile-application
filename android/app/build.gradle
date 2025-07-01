@@ -77,13 +77,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.sethfm"
+    namespace "seth.fm"
     defaultConfig {
-        applicationId "com.sethfm"
+        applicationId "seth.fm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 10
+        versionName "1.0.3"
     }
     signingConfigs {
         debug {
