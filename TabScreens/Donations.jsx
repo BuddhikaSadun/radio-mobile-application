@@ -10,12 +10,6 @@ import Typography from '../constants/Typography';
 import Footer from '../TabScreens/Footer';
 import donateImg from '../assets/donate_1.png';
 
-import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
-
-const adUnitId = __DEV__
-  ? TestIds.ADAPTIVE_BANNER
-  : 'ca-app-pub-3373184600332761/8310373850';
-
 export default function DonationForm() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -59,10 +53,6 @@ export default function DonationForm() {
         </View>
 
         <Footer />
-        <BannerAd
-          unitId={adUnitId}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        />
       </View>
     </ScrollView>
   );
