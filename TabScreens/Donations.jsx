@@ -9,6 +9,7 @@ import {
 import Typography from '../constants/Typography';
 import Footer from '../TabScreens/Footer';
 import donateImg from '../assets/donate_1.png';
+import SocialMedia from './SocialMedia';
 
 export default function DonationForm() {
   const colorScheme = useColorScheme();
@@ -26,32 +27,39 @@ export default function DonationForm() {
 
         <View style={styles.formContainer}>
           <Text style={[styles.title, {color: isDark ? 'black' : 'black'}]}>
-            Donate For Us
+            Donate
           </Text>
           <Image
             source={donateImg}
             style={styles.donationImage}
             resizeMode="contain"
           />
-
           <Text
-            style={[styles.donationInfo, {color: isDark ? 'black' : 'black'}]}>
-            Seth Fm Account Name - The Friend Media Network (Pvt) Ltd
+            style={[styles.bankDetails, {color: isDark ? 'black' : 'black'}]}>
+            Bank Details
           </Text>
           <Text
             style={[styles.donationInfo, {color: isDark ? 'black' : 'black'}]}>
-            Account Number - 034 100 112 463 690
+            Name - The Friend Media Network (Pvt) Ltd
           </Text>
           <Text
             style={[styles.donationInfo, {color: isDark ? 'black' : 'black'}]}>
-            Bank - Peoples Bank Negombo
+            Number - 034 100 112 463 690
           </Text>
           <Text
+            style={[styles.donationInfo, {color: isDark ? 'black' : 'black'}]}>
+            Bank - Peoples Bank
+          </Text>
+          <Text
+            style={[styles.donationInfo, {color: isDark ? 'black' : 'black'}]}>
+            Branch - Negombo
+          </Text>
+          {/*<Text
             style={[styles.donationInfo, {color: isDark ? 'black' : 'black'}]}>
             Whatsapp - 075 710 4487
-          </Text>
+          </Text>*/}
         </View>
-
+        <SocialMedia />
         <Footer />
       </View>
     </ScrollView>
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
     fontSize: Typography.fontSize.xl,
   },
@@ -95,6 +103,13 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     alignSelf: 'center',
+  },
+  bankDetails: {
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.medium,
+    marginBottom: 10,
+    paddingBottom: 20,
+    textAlign: 'center',
   },
   donationInfo: {
     fontSize: Typography.fontSize.md,

@@ -10,7 +10,8 @@ import React from 'react';
 
 import Typography from '../constants/Typography';
 import programImages from '../constants/programImages';
-import Footer from '../TabScreens/Footer';
+import logo from '../assets/SethFMLogo.png';
+import SocialMedia from './SocialMedia';
 
 const Programs = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -39,6 +40,21 @@ const Programs = () => {
         }}
         keyExtractor={item => item.id}
         removeClippedSubviews={true}
+        ListFooterComponent={
+          <View>
+            <SocialMedia />
+            <View style={styles.Footercontainer}>
+              <View style={styles.content}>
+                <Image source={logo} style={styles.Footerimg} />
+                <Text style={styles.tagText}>
+                  {
+                    'Your Family Radio Channel \nSeth FM - 103.1 Mhz\nThe Friend Media Network Pvt Ltd \n'
+                  }
+                </Text>
+              </View>
+            </View>
+          </View>
+        }
         renderItem={({item}) => (
           <View style={styles.card}>
             <Image
@@ -49,7 +65,6 @@ const Programs = () => {
           </View>
         )}
       />
-      <Footer />
     </View>
   );
 };
@@ -96,5 +111,32 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     paddingTop: 25,
+  },
+
+  Footercontainer: {
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingHorizontal: 50,
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+  },
+  content: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    paddingLeft: 10,
+  },
+  Footerimg: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  tagText: {
+    paddingLeft: 10,
+    color: '#333333',
+    fontSize: Typography.fontSize.md,
+    lineHeight: 20,
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });

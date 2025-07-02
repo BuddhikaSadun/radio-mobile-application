@@ -71,6 +71,30 @@ const programImages = [
     id: 18,
     imageUrl: require('../assets/programs/paththra_wisthara.jpg'),
   },
+  {
+    id: 19,
+    imageUrl: require('../assets/programs/jayamangala_gatha.jpg'),
+  },
+  {
+    id: 20,
+    imageUrl: require('../assets/programs/seth_pirith.jpg'),
+  },
+  {
+    id: 21,
+    imageUrl: require('../assets/programs/seth_sirilara.jpg'),
+  },
+  {
+    id: 22,
+    imageUrl: require('../assets/programs/bodu_sadaham.jpg'),
+  },
+  {
+    id: 23,
+    imageUrl: require('../assets/programs/Seth_Fm_News.jpg'),
+  },
+  {
+    id: 24,
+    imageUrl: require('../assets/programs/8-10.jpg'),
+  },
 ];
 
 export default programImages;

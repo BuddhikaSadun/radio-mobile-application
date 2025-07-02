@@ -17,12 +17,7 @@ import axios from 'axios';
 import {BASE_URL} from '@/constants/BaseURL';
 import theme, {LightTheme, DarkTheme} from '../constants/theme';
 import Footer from '../TabScreens/Footer';
-
-import Google from '../assets/logos/icons8-google-240.png';
-import Instagram from '../assets/logos/icons8-instagram-240.png';
-import TikTok from '../assets/logos/icons8-tiktok-240.png';
-import Facebook from '../assets/logos/icons8-facebook-240.png';
-import Youtube from '../assets/logos/icons8-youtube-240.png';
+import SocialMedia from './SocialMedia';
 
 export default function ContactUs() {
   const [form, setForm] = useState({
@@ -84,27 +79,20 @@ export default function ContactUs() {
           styles.messageForm,
           isDarkMode ? DarkTheme.cardBackground : LightTheme.cardBackground,
         ]}>
-        <Text style={[styles.messageTitle, ,]}>Write us a message below</Text>
-        <Text style={{color: 'black'}}>First Name</Text>
+        <Text style={[styles.messageTitle, ,]}>Write your message below</Text>
+        <Text style={{color: 'black'}}>Name</Text>
         <TextInput
           style={styles.inputStyle}
-          placeholder="Enter First Name"
+          placeholder="Enter your Name"
           placeholderTextColor="grey"
           value={form.firstName}
           onChangeText={text => handleChange('firstName', text)}
         />
-        <Text style={{color: 'black'}}>Last Name</Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Enter Last Name"
-          placeholderTextColor="grey"
-          value={form.lastName}
-          onChangeText={text => handleChange('lastName', text)}
-        />
+
         <Text style={{color: 'black'}}>Email</Text>
         <TextInput
           style={styles.inputStyle}
-          placeholder="Enter Email"
+          placeholder="Enter your Email"
           keyboardType="email-address"
           placeholderTextColor="grey"
           value={form.email}
@@ -113,7 +101,7 @@ export default function ContactUs() {
         <Text style={{color: 'black'}}>Message</Text>
         <TextInput
           style={[styles.inputStyle, styles.textArea]}
-          placeholder="Enter Message"
+          placeholder="Enter your Message"
           placeholderTextColor="grey"
           multiline
           numberOfLines={4}
@@ -134,10 +122,18 @@ export default function ContactUs() {
         ]}>
         <Text
           style={[
-            styles.titleRequest,
+            styles.contactTitleText,
             {color: isDarkMode ? 'white' : 'black'},
           ]}>
-          Request Us
+          Contact Information
+        </Text>
+
+        <Text
+          style={[
+            styles.contactSubtitleText,
+            {color: isDarkMode ? 'white' : 'black'},
+          ]}>
+          Song Requests
         </Text>
 
         <TouchableOpacity onPress={() => Linking.openURL('tel:+94312228181')}>
@@ -178,10 +174,10 @@ export default function ContactUs() {
 
         <Text
           style={[
-            styles.titleRequest,
+            styles.contactSubtitleText,
             {color: isDarkMode ? 'white' : 'black'},
           ]}>
-          For Marketing
+          Marketing
         </Text>
 
         <View style={styles.infoWrap}>
@@ -284,52 +280,8 @@ export default function ContactUs() {
             </Text>
           </View>
         </TouchableOpacity>
-
-        <Text
-          style={[styles.connectText, {color: isDarkMode ? 'white' : 'black'}]}>
-          Get Connected
-        </Text>
-        <View style={styles.socialIcons}>
-          <TouchableOpacity
-            onPress={() =>
-              Linking.openURL('https://www.youtube.com/@sethfm-f1n')
-            }>
-            <View style={styles.iconWrapper}>
-              <Image source={Youtube} style={styles.iconImage} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => Linking.openURL('https://www.sethfm.lk')}>
-            <View style={styles.iconWrapper}>
-              <Image source={Google} style={styles.iconImage} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              Linking.openURL('https://www.facebook.com/sethfm103.1/')
-            }>
-            <View style={styles.iconWrapper}>
-              <Image source={Facebook} style={styles.iconImage} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              Linking.openURL('https://www.instagram.com/sethfmlk/?hl=en')
-            }>
-            <View style={styles.iconWrapper}>
-              <Image source={Instagram} style={styles.iconImage} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              Linking.openURL('https://www.tiktok.com/@sethfm103.1')
-            }>
-            <View style={styles.iconWrapper}>
-              <Image source={TikTok} style={styles.iconImage} />
-            </View>
-          </TouchableOpacity>
-        </View>
       </View>
+      <SocialMedia />
       <Footer />
     </ScrollView>
   );
@@ -379,20 +331,26 @@ const styles = StyleSheet.create({
   textArea: {
     height: 100,
   },
-
-  titleRequest: {
+  contactTitleText: {
     textAlign: 'center',
     fontSize: 22,
     fontWeight: 'bold',
+    marginBottom: 35,
+  },
+
+  contactSubtitleText: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
     marginBottom: 20,
+    paddingBottom: 10,
   },
 
   InfoContainer: {
-    padding: 20,
+    padding: 10,
     margin: 20,
     alignItems: 'center',
     marginTop: 20,
-    marginBottom: 20,
     borderRadius: 10,
     elevation: 4,
     shadowOffset: {width: 0, height: 2},
@@ -401,7 +359,7 @@ const styles = StyleSheet.create({
   },
   infoSection: {
     flexDirection: 'row',
-    marginBottom: 25,
+    marginBottom: 18,
   },
 
   infoText: {
