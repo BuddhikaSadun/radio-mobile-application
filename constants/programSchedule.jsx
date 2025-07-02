@@ -170,7 +170,7 @@ const WeekDay = [
   },
   {
     id: '29',
-    title: 'Night Religous program',
+    title: 'Night Religous Program',
     category: 'Religous',
     time: '10:30 PM - 11:00 PM',
   },
@@ -371,7 +371,7 @@ const Saturday = [
   },
   {
     id: '30',
-    title: 'Night Religous program',
+    title: 'Night Religous Program',
     category: 'Religous',
     time: '10:30 PM - 11:00 PM',
   },
@@ -389,7 +389,7 @@ const Saturday = [
   },
   {
     id: '33',
-    title: 'Religous programs',
+    title: 'Religous Programs',
     category: 'Entertainment',
     time: '01:00 AM - 04:59 AM',
   },
@@ -460,7 +460,7 @@ const Sunday = [
     id: '11',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '11:01 AM - 12:00 AM',
+    time: '11:01 AM - 12:00 PM',
   },
   {
     id: '12',
