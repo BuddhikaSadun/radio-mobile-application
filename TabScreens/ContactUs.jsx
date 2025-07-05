@@ -14,15 +14,14 @@ import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Typography from '../constants/Typography';
 import axios from 'axios';
-import {BASE_URL} from '@/constants/BaseURL';
+import {BASE_URL} from '../constants/BaseURL';
 import theme, {LightTheme, DarkTheme} from '../constants/theme';
 import Footer from '../TabScreens/Footer';
 import SocialMedia from './SocialMedia';
 
 export default function ContactUs() {
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     message: '',
   });
@@ -37,7 +36,7 @@ export default function ContactUs() {
   };
 
   const handleSubmit = async () => {
-    if (!form.firstName || !form.lastName || !form.email || !form.message) {
+    if (!form.name || !form.email || !form.message) {
       alert('Please fill out all fields.');
       return;
     }
@@ -48,9 +47,9 @@ export default function ContactUs() {
     }
 
     try {
-      const response = await axios.post(`${BASE_URL}/feedback/create`, form);
+      await axios.post(`${BASE_URL}/feedback/create`, form);
       alert('Thank you for your feedback!');
-      setForm({firstName: '', lastName: '', email: '', message: ''}); // reset form
+      setForm({name: '', email: '', message: ''}); // reset form
     } catch (error) {
       console.error('Submission error:', error.message);
       alert('Failed to send feedback. Please try again.');
@@ -85,8 +84,8 @@ export default function ContactUs() {
           style={styles.inputStyle}
           placeholder="Enter your Name"
           placeholderTextColor="grey"
-          value={form.firstName}
-          onChangeText={text => handleChange('firstName', text)}
+          value={form.name}
+          onChangeText={text => handleChange('name', text)}
         />
 
         <Text style={{color: 'black'}}>Email</Text>
@@ -327,6 +326,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
     backgroundColor: '#f0f0f0',
+    color: 'black',
   },
   textArea: {
     height: 100,
