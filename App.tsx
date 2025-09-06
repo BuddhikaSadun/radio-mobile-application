@@ -7,7 +7,14 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Programs from './TabScreens/Programs';
-import {Image, View, Text, useColorScheme} from 'react-native';
+import {
+  Image,
+  View,
+  Text,
+  useColorScheme,
+  Platform,
+  Dimensions,
+} from 'react-native';
 import logo from './assets/SethFMLogo.png';
 import ContactUs from './TabScreens/ContactUs';
 import Donations from './TabScreens/Donations';
@@ -32,33 +39,57 @@ const Colors = {
 
 const MyTabs = () => {
   const colorScheme = useColorScheme(); // 'light' | 'dark' | null
-
+  const windowWidth = Dimensions.get('window').width;
+  const isTablet = Platform.OS === 'ios' && windowWidth >= 768;
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].inactive,
         headerShown: true,
-        headerBackground: () => (
-          <LinearGradient
-            colors={[LightTheme.highlight, 'transparent']} // red to transparent
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            style={{flex: 1}}
-          />
-        ),
-        headerTitle: () => (
-          <View style={{flex: 1, paddingLeft: 120}}>
-            <Image
-              source={logo}
+        headerBackground: () =>
+          Platform.OS === 'ios' ? (
+            <LinearGradient
+              colors={[LightTheme.highlight, 'transparent']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
               style={{
-                width: 130,
-                height: 65,
-                resizeMode: 'contain',
-              }}
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingTop: 50,
+              }}>
+              <Image
+                source={logo}
+                style={{
+                  width: 100,
+                  height: 50,
+                  resizeMode: 'contain',
+                }}
+              />
+            </LinearGradient>
+          ) : (
+            <LinearGradient
+              colors={[LightTheme.highlight, 'transparent']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              style={{flex: 1}}
             />
-          </View>
-        ),
+          ),
+        headerTitle: () =>
+          Platform.OS === 'ios' ? null : (
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <Image
+                source={logo}
+                style={{
+                  width: 130,
+                  height: 65,
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
+          ),
         tabBarStyle: {
           height: 70,
           paddingBottom: 5,
