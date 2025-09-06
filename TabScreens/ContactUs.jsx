@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   Linking,
   TouchableOpacity,
@@ -107,7 +106,9 @@ export default function ContactUs() {
           value={form.message}
           onChangeText={text => handleChange('message', text)}
         />
-        <Button title="Submit" onPress={handleSubmit} color={'orange'} />
+        <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
+          <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
       </View>
 
       <View
@@ -331,6 +332,19 @@ const styles = StyleSheet.create({
   textArea: {
     height: 100,
   },
+  submitButton: {
+    backgroundColor: 'orange',
+    paddingVertical: 12,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
   contactTitleText: {
     textAlign: 'center',
     fontSize: 22,
@@ -365,27 +379,5 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 16,
     marginLeft: 15,
-  },
-  connectText: {
-    paddingTop: 30,
-    textAlign: 'center',
-    fontSize: Typography.fontSize.lg,
-    fontWeight: 'bold',
-  },
-  socialIcons: {
-    flexDirection: 'row',
-    marginTop: 20,
-    justifyContent: 'space-between',
-  },
-  iconImage: {width: 40, height: 40, marginHorizontal: 8},
-  iconWrapper: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#ffffff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 8,
-    elevation: 1,
   },
 });
