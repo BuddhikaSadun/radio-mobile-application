@@ -47,6 +47,7 @@ const MyTabs = () => {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].inactive,
         headerShown: true,
+        headerTitleAlign: 'center',
         headerBackground: () =>
           Platform.OS === 'ios' ? (
             <LinearGradient
@@ -74,7 +75,13 @@ const MyTabs = () => {
               colors={[LightTheme.highlight, 'transparent']}
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
-              style={{flex: 1}}
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingLeft: 50,
+              }}
             />
           ),
         headerTitle: () =>
