@@ -16,12 +16,6 @@ import logo from '../assets/SethFMLogo.png';
 import programSchedule from '../constants/programSchedule';
 import Typography from '../constants/Typography';
 
-import Google from '../assets/logos/icons8-google-240.png';
-import Instagram from '../assets/logos/icons8-instagram-240.png';
-import TikTok from '../assets/logos/icons8-tiktok-240.png';
-import Facebook from '../assets/logos/icons8-facebook-240.png';
-import Youtube from '../assets/logos/icons8-youtube-240.png';
-
 import SocialMedia from './SocialMedia';
 import theme, {LightTheme, DarkTheme} from '../constants/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

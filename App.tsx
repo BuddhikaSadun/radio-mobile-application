@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import logo from './assets/SethFMLogo.png';
 import ContactUs from './TabScreens/ContactUs';
-import Donations from './TabScreens/Donations';
+//import Donations from './TabScreens/Donations';
 import LinearGradient from 'react-native-linear-gradient';
 import LiveRadio from './TabScreens/LiveRadio';
 import {LightTheme} from './constants/theme';
@@ -144,26 +144,6 @@ const MyTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Donations"
-        component={Donations}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <MaterialIcons name="payments" size={size} color={color} />
-          ),
-          tabBarLabel: ({focused}) => (
-            <Text
-              style={{
-                color: focused
-                  ? Colors[colorScheme ?? 'light'].tint
-                  : Colors[colorScheme ?? 'light'].inactive,
-                fontSize: 14,
-              }}>
-              Donations
-            </Text>
-          ),
-        }}
-      />
-      <Tab.Screen
         name="ContactUs"
         component={ContactUs}
         options={{
@@ -189,9 +169,11 @@ const MyTabs = () => {
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+
   useEffect(() => {
-    SplashScreen.hide(); // Hide the splash screen when the app is ready
+    SplashScreen.hide();
   }, []);
+
   return (
     <NavigationContainer theme={isDarkMode ? DarkTheme : DefaultTheme}>
       <MyTabs />
