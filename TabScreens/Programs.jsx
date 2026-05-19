@@ -12,6 +12,7 @@ import Typography from '../constants/Typography';
 import programImages from '../constants/programImages';
 import logo from '../assets/SethFMLogo.png';
 import SocialMedia from './SocialMedia';
+import Footer from './Footer';
 
 const Programs = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -43,16 +44,7 @@ const Programs = () => {
         ListFooterComponent={
           <View>
             <SocialMedia />
-            <View style={styles.Footercontainer}>
-              <View style={styles.content}>
-                <Image source={logo} style={styles.Footerimg} />
-                <Text style={styles.tagText}>
-                  {
-                    'Your Family Radio Channel \nSeth FM - 103.1 Mhz\nThe Friend Media Network Pvt Ltd \n'
-                  }
-                </Text>
-              </View>
-            </View>
+            <Footer />
           </View>
         }
         renderItem={({item}) => (
@@ -117,7 +109,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center',
     paddingTop: 10,
-    paddingHorizontal: 50,
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
   },

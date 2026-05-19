@@ -2,45 +2,24 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
-  TouchableOpacity,
   FlatList,
-  ActivityIndicator,
   ScrollView,
   useColorScheme,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-
-import LinearGradient from 'react-native-linear-gradient';
-import logo from '../assets/SethFMLogo.png';
 import programSchedule from '../constants/programSchedule';
 import Typography from '../constants/Typography';
 
 import SocialMedia from './SocialMedia';
 import theme, {LightTheme, DarkTheme} from '../constants/theme';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import TrackPlayer, {
-  Capability,
-  AppKilledPlaybackBehavior,
-  usePlaybackState,
-  State,
-} from 'react-native-track-player';
 import Footer from './Footer';
-
-const STREAM_URL = 'https://listen.radioking.com/radio/384487/stream/435781';
+import Player from './Player';
 
 const LiveRadio = () => {
   const [currentProgram, setCurrentProgram] = useState(null);
   const [upcomingPrograms, setUpcomingPrograms] = useState([]);
 
-  const playbackState = usePlaybackState(); // Automatically updates on state changes
-  const isPlaying =
-    playbackState?.state === State.Playing ||
-    playbackState?.state === State.Buffering;
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Helper to convert "10:00 AM" → minutes since midnight
   const parseTime = timeStr => {
     const [time, modifier] = timeStr.trim().split(' ');
     let [hours, minutes] = time.split(':').map(Number);
@@ -49,7 +28,6 @@ const LiveRadio = () => {
     return hours * 60 + minutes;
   };
 
-  // Fetch Programs based on the current day and time
   const fetchPrograms = () => {
     const now = new Date();
     const currentDay = now.getDay();
@@ -71,10 +49,22 @@ const LiveRadio = () => {
     }
 
     let foundIndex = -1;
+
     const match = todaySchedule.find((program, index) => {
       const [start, end] = program.time.split(' - ').map(parseTime);
-      const isCurrent = currentTime >= start && currentTime <= end;
+
+      let isCurrent = false;
+
+      if (start <= end) {
+        // Normal time range (e.g., 08:00 AM - 10:00 AM)
+        isCurrent = currentTime >= start && currentTime < end;
+      } else {
+        // Overnight range (e.g., 11:00 PM - 12:00 AM)
+        isCurrent = currentTime >= start || currentTime < end;
+      }
+
       if (isCurrent) foundIndex = index;
+
       return isCurrent;
     });
 
@@ -85,111 +75,6 @@ const LiveRadio = () => {
       setUpcomingPrograms([]);
     }
   };
-
-  useEffect(() => {
-    const setupPlayer = async () => {
-      try {
-        setIsLoading(true);
-
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.updateOptions({
-          stopWithApp: true,
-          capabilities: [Capability.Play, Capability.Pause, Capability.Stop],
-          compactCapabilities: [Capability.Play, Capability.Pause],
-          android: {
-            appKilledPlaybackBehavior:
-              AppKilledPlaybackBehavior.ContinuePlayback,
-          },
-        });
-
-        await TrackPlayer.reset();
-
-        await TrackPlayer.add({
-          id: 'live-radio',
-          url: STREAM_URL,
-          title: 'Live Radio',
-          artist: 'Seth FM',
-          artwork: logo,
-        });
-        await TrackPlayer.setPlayWhenReady(true);
-      } catch (err) {
-        console.error('Player setup error:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    setupPlayer();
-
-    const handleStateChange = async state => {
-      if (state === State.Ended) {
-        console.log('Stream ended. Restarting...');
-        try {
-          await TrackPlayer.reset();
-          await TrackPlayer.add({
-            id: 'live-radio',
-            url: STREAM_URL,
-            title: 'Live Radio',
-            artist: 'Seth FM',
-            artwork: logo,
-          });
-          await TrackPlayer.play();
-        } catch (err) {
-          console.error('Error restarting stream:', err);
-        }
-      }
-    };
-
-    const listener = TrackPlayer.addEventListener('playback-state', event => {
-      handleStateChange(event.state);
-    });
-
-    return () => {
-      listener.remove(); // Clean up listener
-    };
-  }, []);
-
-  // Toggle play/pause
-  const togglePlayback = async () => {
-    try {
-      const state = await TrackPlayer.getState();
-
-      if (
-        state === State.Playing ||
-        state === State.Buffering ||
-        state === State.Paused
-      ) {
-        await TrackPlayer.stop();
-        await TrackPlayer.reset();
-      } else if (
-        state === State.Stopped ||
-        state === State.Ready ||
-        state === State.None
-      ) {
-        setIsLoading(true);
-
-        await TrackPlayer.add({
-          id: 'live-radio',
-          url: STREAM_URL,
-          title: 'Live Radio',
-          artist: 'Seth FM',
-          artwork: logo,
-        });
-        await TrackPlayer.setPlayWhenReady(true); // safer for live stream
-
-        setIsLoading(false); // ✅ move this outside conditional
-      }
-    } catch (err) {
-      console.error('Toggle error:', err);
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    console.log('Raw playbackState:', playbackState);
-    console.log('isPlaying:', isPlaying);
-  }, [playbackState]);
-
   useEffect(() => {
     fetchPrograms();
     const interval = setInterval(fetchPrograms, 60000);
@@ -210,40 +95,12 @@ const LiveRadio = () => {
         LIVE RADIO
       </Text>
 
-      <LinearGradient
-        colors={['#F8A72C', '#FED392', '#F8A72C']}
-        locations={[0, 0.6, 1]}
-        useAngle={true}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}
-        style={styles.playerContainer}>
-        <View
-          style={[
-            styles.liveTag,
-            {backgroundColor: isPlaying ? 'red' : 'gray'},
-          ]}>
-          <Text style={styles.liveTagText}>LIVE</Text>
-        </View>
-        <Image source={logo} style={styles.img} resizeMode="contain" />
-
-        <TouchableOpacity onPress={togglePlayback} style={styles.button}>
-          {isLoading ? (
-            <ActivityIndicator size={60} color="black" />
-          ) : (
-            <MaterialIcons
-              name={isPlaying ? 'pause-circle-outline' : 'play-circle-fill'}
-              size={60}
-              color={isDarkMode ? 'white' : 'black'}
-            />
-          )}
-        </TouchableOpacity>
-      </LinearGradient>
-
+      <Player />
       {currentProgram ? (
         <>
           <Text
             style={[
-              styles.title,
+              styles.currentProgramTitle,
               {
                 color: isDarkMode
                   ? DarkTheme.primaryText
@@ -252,14 +109,13 @@ const LiveRadio = () => {
             ]}>
             {currentProgram.title}
           </Text>
-          <Text style={styles.category}>{currentProgram.category}</Text>
+          {/*<Text style={styles.category}>{currentProgram.category}</Text>*/}
         </>
       ) : (
         <Text style={{color: 'gray', fontStyle: 'italic'}}>
           No current program
         </Text>
       )}
-
       <View>
         <Text
           style={[
@@ -373,13 +229,18 @@ const styles = StyleSheet.create({
   upcomingText: {
     textAlign: 'center',
     margin: 10,
-    fontSize: Typography.fontSize.xl,
+    fontSize: Typography.fontSize.lg,
     fontWeight: Typography.fontWeight.semiBold,
     paddingTop: 50,
   },
-  title: {
+  currentProgramTitle: {
     textAlign: 'center',
     fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.medium,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: Typography.fontSize.md,
     fontWeight: Typography.fontWeight.medium,
   },
   category: {

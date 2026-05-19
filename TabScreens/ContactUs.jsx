@@ -4,58 +4,33 @@ import {
   TextInput,
   StyleSheet,
   Linking,
-  TouchableOpacity,
   ScrollView,
   useColorScheme,
   Image,
+  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Typography from '../constants/Typography';
-import axios from 'axios';
-import {BASE_URL} from '../constants/BaseURL';
-import theme, {LightTheme, DarkTheme} from '../constants/theme';
+
+import {LightTheme, DarkTheme} from '../constants/theme';
 import Footer from '../TabScreens/Footer';
 import SocialMedia from './SocialMedia';
 
 export default function ContactUs() {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-
-  const handleChange = (name, value) => {
-    setForm({...form, [name]: value});
-  };
-
-  const isValidEmail = email => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.message) {
-      alert('Please fill out all fields.');
-      return;
-    }
-
-    if (!isValidEmail(form.email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    try {
-      await axios.post(`${BASE_URL}/feedback/create`, form);
-      alert('Thank you for your feedback!');
-      setForm({name: '', email: '', message: ''}); // reset form
-    } catch (error) {
-      console.error('Submission error:', error.message);
-      alert('Failed to send feedback. Please try again.');
-    }
-  };
-
   const isDarkMode = useColorScheme() === 'dark';
+
+  const makeCall = async phone => {
+    const url = `tel:${phone}`;
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      Linking.openURL(url);
+    } else {
+      console.warn('Phone call not supported');
+    }
+  };
 
   return (
     <ScrollView
@@ -67,219 +42,477 @@ export default function ContactUs() {
       <Text
         style={[
           styles.headerText,
-          {color: isDarkMode ? DarkTheme.primaryText : LightTheme.primaryText},
+          {
+            color: isDarkMode ? DarkTheme.primaryText : LightTheme.primaryText,
+          },
         ]}>
         CONTACT US
       </Text>
 
+      {/*Contact Information*/}
       <View
         style={[
-          styles.messageForm,
-          isDarkMode ? DarkTheme.cardBackground : LightTheme.cardBackground,
-        ]}>
-        <Text style={[styles.messageTitle, ,]}>Write your message below</Text>
-        <Text style={{color: 'black'}}>Name</Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Enter your Name"
-          placeholderTextColor="grey"
-          value={form.name}
-          onChangeText={text => handleChange('name', text)}
-        />
-
-        <Text style={{color: 'black'}}>Email</Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Enter your Email"
-          keyboardType="email-address"
-          placeholderTextColor="grey"
-          value={form.email}
-          onChangeText={text => handleChange('email', text)}
-        />
-        <Text style={{color: 'black'}}>Message</Text>
-        <TextInput
-          style={[styles.inputStyle, styles.textArea]}
-          placeholder="Enter your Message"
-          placeholderTextColor="grey"
-          multiline
-          numberOfLines={4}
-          value={form.message}
-          onChangeText={text => handleChange('message', text)}
-        />
-        <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
-          <Text style={styles.submitButtonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View
-        style={[
-          styles.InfoContainer,
+          styles.sectionCard,
           {
             backgroundColor: isDarkMode
               ? DarkTheme.cardBackground
               : LightTheme.cardBackground,
           },
         ]}>
-        <Text
-          style={[
-            styles.contactTitleText,
-            {color: isDarkMode ? 'white' : 'black'},
-          ]}>
-          Contact Information
-        </Text>
+        <View style={styles.InfoTitleView}>
+          {/*<MaterialCommunityIcons name="contacts" color={'black'} size={30} />*/}
+          <Text
+            style={[
+              styles.contactTitleText,
+              {
+                color: isDarkMode
+                  ? DarkTheme.primaryText
+                  : LightTheme.primaryText,
+              },
+            ]}>
+            Contact Information
+          </Text>
+        </View>
 
-        <Text
-          style={[
-            styles.contactSubtitleText,
-            {color: isDarkMode ? 'white' : 'black'},
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={async () => {
+            const url = 'mailto:sethfm02@gmail.com';
+            const supported = await Linking.canOpenURL(url);
+            if (supported) {
+              Linking.openURL(url);
+            } else {
+              console.warn("Can't open email client");
+            }
+          }}
+          style={({pressed}) => [
+            styles.infoSection,
+            pressed && {opacity: 0.6}, // works on iOS & Android
           ]}>
-          Song Requests
-        </Text>
-
-        <TouchableOpacity onPress={() => Linking.openURL('tel:+94312228181')}>
-          <View style={[styles.infoSection, {paddingBottom: 10}]}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
             <FontAwesome5
-              name="phone"
-              size={28}
-              color={isDarkMode ? 'white' : 'black'}
+              name="envelope"
+              size={22}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
             />
+          </View>
+
+          <View style={styles.textContainer}>
             <Text
               style={[
-                styles.infoText,
-                {color: isDarkMode ? 'white' : 'black'},
-                {paddingRight: 80},
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Email
+            </Text>
+            <Text
+              selectable={true}
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              sethfm02@gmail.com
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => makeCall('+94312228181')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <Entypo
+              name="landline"
+              size={20}
+              style={{transform: [{scaleX: -1}]}}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Office
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
               ]}>
               +94 31 222 8181
             </Text>
           </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => Linking.openURL('tel:+94718758181')}>
-          <View style={[styles.infoSection, {paddingBottom: 10}]}>
-            <FontAwesome5
-              name="phone"
-              size={28}
-              color={isDarkMode ? 'white' : 'black'}
-            />
-            <Text
-              style={[
-                styles.infoText,
-                {color: isDarkMode ? 'white' : 'black'},
-                {paddingRight: 80},
-              ]}>
-              +94 71 875 8181
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <Text
-          style={[
-            styles.contactSubtitleText,
-            {color: isDarkMode ? 'white' : 'black'},
-          ]}>
-          Marketing
-        </Text>
-
-        <View style={styles.infoWrap}>
-          <TouchableOpacity
-            onPress={() => Linking.openURL('tel:+94 76 317 5778')}>
-            <View style={styles.infoSection}>
-              <FontAwesome5
-                name="phone"
-                size={28}
-                style={{alignContent: 'center'}}
-                color={isDarkMode ? 'white' : 'black'}
-              />
-              <Text
-                style={[
-                  styles.infoText,
-                  {color: isDarkMode ? 'white' : 'black'},
-                ]}>
-                +94 76 317 5778
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => Linking.openURL('https://wa.me/94757104487')}>
-            <View style={styles.infoSection}>
-              <FontAwesome5
-                name="phone"
-                size={28}
-                style={{alignContent: 'center'}}
-                color={isDarkMode ? 'white' : 'black'}
-              />
-              <Text
-                style={[
-                  styles.infoText,
-                  {color: isDarkMode ? 'white' : 'black'},
-                ]}>
-                +94 75 710 4487 (WhatsApp)
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => Linking.openURL('tel:+94 75 864 0555')}>
-            <View style={styles.infoSection}>
-              <FontAwesome5
-                name="phone"
-                size={28}
-                style={{alignContent: 'center'}}
-                color={isDarkMode ? 'white' : 'black'}
-              />
-              <Text
-                style={[
-                  styles.infoText,
-                  {color: isDarkMode ? 'white' : 'black'},
-                ]}>
-                +94 75 864 0555
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => Linking.openURL('mailto:sethfm02@gmail.com')}>
-            <View style={styles.infoSection}>
-              <FontAwesome5
-                name="envelope"
-                size={28}
-                style={{alignContent: 'center'}}
-                color={isDarkMode ? 'white' : 'black'}
-              />
-              <Text
-                style={[
-                  styles.infoText,
-                  {color: isDarkMode ? 'white' : 'black'},
-                ]}>
-                sethfm02@gmail.com
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity
+        </Pressable>
+        <Pressable
+          android_ripple={{color: '#ccc'}}
           onPress={() =>
             Linking.openURL(
               'https://www.google.com/maps/search/?api=1&query=St+Mary’s+Church+Jubilee+Hall,+Grand+St,+Negombo+11500',
             )
-          }>
-          <View style={[styles.infoSection, {paddingLeft: 1}]}>
+          }
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
             <FontAwesome5
-              name="map-marker"
-              size={30}
-              style={{alignContent: 'center'}}
-              color={isDarkMode ? 'white' : 'black'}
+              name="map-marker-alt"
+              size={22}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
             />
+          </View>
+
+          <View style={styles.textContainer}>
             <Text
               style={[
-                styles.infoText,
-                {color: isDarkMode ? 'white' : 'black'},
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
               ]}>
-              {'St Mary’s Church Jubilee Hall,\nGrand St, Negombo 11500'}
+              Location
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              St Mary’s Church Jubilee Hall{'\n'}
+              Grand St, Negombo 11500
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
+      </View>
+
+      {/* Song Requests Card */}
+      <View
+        style={[
+          styles.sectionCard,
+          {
+            backgroundColor: isDarkMode
+              ? DarkTheme.cardBackground
+              : LightTheme.cardBackground,
+          },
+        ]}>
+        <View style={styles.sectionHeader}>
+          <Text
+            style={[
+              styles.contactSubtitleText,
+              {
+                color: isDarkMode
+                  ? DarkTheme.primaryText
+                  : LightTheme.primaryText,
+              },
+            ]}>
+            Song Requests
+          </Text>
+        </View>
+        {/* Landline */}
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => Linking.openURL('tel:+94312228181')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <Entypo
+              name="landline"
+              size={20}
+              style={{transform: [{scaleX: -1}]}}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Office
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              +94 31 222 8181
+            </Text>
+          </View>
+        </Pressable>
+
+        {/* Mobile */}
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => Linking.openURL('tel:+94718758181')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <FontAwesome5
+              name="mobile-alt"
+              size={20}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Mobile
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              +94 71 875 8181
+            </Text>
+          </View>
+        </Pressable>
+      </View>
+
+      {/* Marketing Card */}
+      <View
+        style={[
+          styles.sectionCard,
+          {
+            backgroundColor: isDarkMode
+              ? DarkTheme.cardBackground
+              : LightTheme.cardBackground,
+          },
+        ]}>
+        <View style={styles.sectionHeader}>
+          <Text
+            style={[
+              styles.contactSubtitleText,
+              {
+                color: isDarkMode
+                  ? DarkTheme.primaryText
+                  : LightTheme.primaryText,
+                marginBottom: 0,
+              },
+            ]}>
+            Sales and Marketing
+          </Text>
+        </View>
+
+        {/* Marketing Contact */}
+
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => Linking.openURL('https://wa.me/94757104487')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <FontAwesome5
+              name="mobile-alt"
+              size={20}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Supun
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              +94 76 317 5778
+            </Text>
+          </View>
+        </Pressable>
+
+        {/* WhatsApp */}
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => Linking.openURL('https://wa.me/94757104487')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <FontAwesome5
+              name="whatsapp"
+              size={20}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Supun
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              +94 75 710 4487
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => Linking.openURL('tel:+94758640555')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <FontAwesome5
+              name="phone"
+              size={20}
+              style={{transform: [{scaleX: -1}]}}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Geethal
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              +94 75 864 0555
+            </Text>
+          </View>
+        </Pressable>
       </View>
       <SocialMedia />
       <Footer />
@@ -288,13 +521,6 @@ export default function ContactUs() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    borderWidth: 2,
-    padding: 10,
-    borderColor: '#FF7F50',
-    backgroundColor: '#FFDAB9',
-    elevation: 4,
-  },
   headerText: {
     marginTop: 20,
     marginBottom: 20,
@@ -303,81 +529,69 @@ const styles = StyleSheet.create({
     fontWeight: Typography.fontWeight.semiBold,
   },
 
-  messageForm: {
-    backgroundColor: '#f9f9f9',
-    padding: 20,
-    borderColor: 'black',
-  },
-
-  messageTitle: {
-    textAlign: 'center',
-    fontSize: 16,
-    marginBottom: 25,
-    color: 'black',
-  },
-  input: {
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  inputStyle: {
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-    backgroundColor: '#f0f0f0',
-    color: 'black',
-  },
-  textArea: {
-    height: 100,
-  },
-  submitButton: {
-    backgroundColor: 'orange',
-    paddingVertical: 12,
-    borderRadius: 6,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  submitButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-
   contactTitleText: {
-    textAlign: 'center',
-    fontSize: 22,
+    textAlign: 'left',
+    fontSize: Typography.fontSize.lg,
     fontWeight: 'bold',
     marginBottom: 35,
   },
 
   contactSubtitleText: {
-    textAlign: 'center',
-    fontSize: 20,
+    fontSize: Typography.fontSize.lg,
     fontWeight: 'bold',
-    marginBottom: 20,
     paddingBottom: 10,
   },
 
-  InfoContainer: {
+  InfoTitleView: {
+    flexDirection: 'column',
+  },
+  primaryText: {
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.medium,
+  },
+  secondaryText: {
+    fontSize: Typography.fontSize.sx,
+    opacity: 0.8,
+  },
+  sectionCard: {
     padding: 10,
-    margin: 20,
-    alignItems: 'center',
-    marginTop: 20,
+    margin: 15,
     borderRadius: 10,
-    elevation: 4,
+    elevation: 2,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
-  infoSection: {
+
+  sectionHeader: {
     flexDirection: 'row',
-    marginBottom: 18,
+    alignItems: 'center',
+    marginBottom: 15,
   },
 
-  infoText: {
-    fontSize: 16,
-    marginLeft: 15,
+  phoneIcon: {
+    marginRight: 12,
+    transform: [{scaleX: -1}],
+  },
+  textContainer: {
+    flexDirection: 'column',
+  },
+
+  infoSection: {
+    flexDirection: 'row',
+    borderWidth: 1.5,
+    borderColor: 'orange',
+    alignItems: 'center',
+    marginBottom: 16,
+    padding: 14,
+    borderRadius: 10,
+  },
+
+  iconStyle: {
+    width: 35, // 👈 fixed width for alignment
+    alignItems: 'center',
+    marginRight: 15,
+    borderRadius: 10,
+    padding: 7,
   },
 });
