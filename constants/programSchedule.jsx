@@ -3,29 +3,29 @@ const WeekDay = [
     id: '1',
     title: 'Jaya Mangala Gatha',
     category: 'Religous',
-    time: '5:00 AM - 05:10 AM',
+    time: '05:00 AM - 05:10 AM',
   },
   {
     id: '2',
     title: 'Seth Pirith',
     category: 'Religous',
-    time: '05:11 AM - 05:30 AM',
+    time: '05:10 AM - 05:30 AM',
   },
   {
     id: '3',
     title: 'Catholic Prayers',
     category: 'Religous',
-    time: '05:31 AM - 05:50 AM',
+    time: '05:30 AM - 05:50 AM',
   },
   {
     id: '4',
     title: 'Sadaham Sithuwili',
     category: 'Religous',
-    time: '05:51 AM - 05:59 AM',
+    time: '05:50 AM - 06:00 AM',
   },
   {
     id: '5',
-    title: 'Sr. Selinta Thought for the Day',
+    title: 'Thought for the Day - Sr. Selinta',
     category: 'Religous',
     time: '06:00 AM - 06:10 AM',
   },
@@ -33,7 +33,7 @@ const WeekDay = [
     id: '6',
     title: 'Ayobowan Seth',
     category: 'Entertainment',
-    time: '06:11 AM - 07:29 AM',
+    time: '06:10 AM - 07:30 AM',
   },
   {
     id: '7',
@@ -57,7 +57,7 @@ const WeekDay = [
     id: '10',
     title: 'Atha Dahaya',
     category: 'Entertainment',
-    time: '09:06 AM - 10:00 AM',
+    time: '09:05 AM - 10:00 AM',
   },
   {
     id: '11',
@@ -69,9 +69,8 @@ const WeekDay = [
     id: '12',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '10:06 AM - 12:00 PM',
+    time: '10:05 AM - 12:00 PM',
   },
-
   {
     id: '13',
     title: 'Thunkala Aradhanawa',
@@ -82,7 +81,7 @@ const WeekDay = [
     id: '14',
     title: 'Lunch Time Music',
     category: 'Entertainment',
-    time: '12:11 PM - 12:45 PM',
+    time: '12:10 PM - 12:45 PM',
   },
   {
     id: '15',
@@ -100,7 +99,7 @@ const WeekDay = [
     id: '17',
     title: 'Dewa Dayawa',
     category: 'Religous',
-    time: '03:00 PM - 03:29 PM',
+    time: '03:00 PM - 03:30 PM',
   },
   {
     id: '18',
@@ -111,7 +110,7 @@ const WeekDay = [
   {
     id: '19',
     title: 'Nowina',
-    category: 'News',
+    category: 'Religous',
     time: '04:30 PM - 05:00 PM',
   },
   {
@@ -124,7 +123,7 @@ const WeekDay = [
     id: '21',
     title: 'Seth Evening Request',
     category: 'Entertainment',
-    time: '05:00 PM - 06:00 PM',
+    time: '05:05 PM - 06:00 PM',
   },
   {
     id: '22',
@@ -136,7 +135,7 @@ const WeekDay = [
     id: '23',
     title: 'Seth Evening Request',
     category: 'Entertainment',
-    time: '06:06 PM - 06:59 PM',
+    time: '06:05 PM - 07:00 PM',
   },
   {
     id: '24',
@@ -148,19 +147,19 @@ const WeekDay = [
     id: '25',
     title: 'Emmaus',
     category: 'Religous',
-    time: '08:01 PM - 09:00 PM',
+    time: '08:00 PM - 09:00 PM',
   },
   {
     id: '26',
     title: 'Catholic Hymns',
     category: 'Religous',
-    time: '09:10 PM - 09:15 PM',
+    time: '09:00 PM - 09:15 PM',
   },
   {
     id: '27',
-    title: 'Seth Main News',
+    title: 'Main News',
     category: 'News',
-    time: '09:15 PM - 09:25 PM',
+    time: '09:15 PM - 09:30 PM',
   },
   {
     id: '28',
@@ -182,45 +181,46 @@ const WeekDay = [
   },
   {
     id: '31',
-    title: 'Daily Mass - Repeat ',
-    category: 'Entertainment',
+    title: 'Daily Mass - Repeat',
+    category: 'Religous',
     time: '12:00 AM - 01:00 AM',
   },
   {
     id: '32',
     title: 'Religous Programs',
-    category: 'Entertainment',
-    time: '12:00 AM - 01:00 AM',
+    category: 'Religous',
+    time: '01:00 AM - 05:00 AM',
   },
 ];
+
 const Saturday = [
   {
     id: '1',
     title: 'Jaya Mangala Gatha',
     category: 'Religous',
-    time: '5:00 AM - 05:10 AM',
+    time: '05:00 AM - 05:10 AM',
   },
   {
     id: '2',
     title: 'Seth Pirith',
     category: 'Religous',
-    time: '05:11 AM - 05:30 AM',
+    time: '05:10 AM - 05:30 AM',
   },
   {
     id: '3',
     title: 'Catholic Prayers',
     category: 'Religous',
-    time: '05:31 AM - 05:50 AM',
+    time: '05:30 AM - 05:50 AM',
   },
   {
     id: '4',
     title: 'Sadaham Sithuwili',
     category: 'Religous',
-    time: '05:51 AM - 05:59 AM',
+    time: '05:50 AM - 06:00 AM',
   },
   {
     id: '5',
-    title: 'Sr. Selinta Thought for the Day',
+    title: 'Thought for the Day - Sr. Selinta',
     category: 'Religous',
     time: '06:00 AM - 06:10 AM',
   },
@@ -228,7 +228,7 @@ const Saturday = [
     id: '6',
     title: 'Ayobowan Seth',
     category: 'Entertainment',
-    time: '06:11 AM - 07:29 AM',
+    time: '06:10 AM - 07:30 AM',
   },
   {
     id: '7',
@@ -252,7 +252,7 @@ const Saturday = [
     id: '10',
     title: 'Music',
     category: 'Entertainment',
-    time: '09:06 AM - 10:00 AM',
+    time: '09:05 AM - 10:00 AM',
   },
   {
     id: '11',
@@ -264,9 +264,8 @@ const Saturday = [
     id: '12',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '10:06 AM - 12:00 PM',
+    time: '10:05 AM - 12:00 PM',
   },
-
   {
     id: '13',
     title: 'Thunkala Aradhanawa',
@@ -277,7 +276,7 @@ const Saturday = [
     id: '14',
     title: 'Lunch Time Music',
     category: 'Entertainment',
-    time: '12:11 PM - 12:45 PM',
+    time: '12:10 PM - 12:45 PM',
   },
   {
     id: '15',
@@ -301,7 +300,7 @@ const Saturday = [
     id: '18',
     title: 'Dewa Dayawa',
     category: 'Religous',
-    time: '03:00 PM - 03:29 PM',
+    time: '03:00 PM - 03:30 PM',
   },
   {
     id: '19',
@@ -312,7 +311,7 @@ const Saturday = [
   {
     id: '20',
     title: 'Nowina',
-    category: 'News',
+    category: 'Religous',
     time: '04:30 PM - 05:00 PM',
   },
   {
@@ -325,7 +324,7 @@ const Saturday = [
     id: '22',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '05:06 PM - 06:00 PM',
+    time: '05:05 PM - 06:00 PM',
   },
   {
     id: '23',
@@ -337,7 +336,7 @@ const Saturday = [
     id: '24',
     title: 'Seth Evening Request',
     category: 'Entertainment',
-    time: '06:06 PM - 06:59 PM',
+    time: '06:05 PM - 07:00 PM',
   },
   {
     id: '25',
@@ -349,17 +348,17 @@ const Saturday = [
     id: '26',
     title: 'Emmaus',
     category: 'Religous',
-    time: '08:01 PM - 09:00 PM',
+    time: '08:00 PM - 09:00 PM',
   },
   {
     id: '27',
     title: 'Catholic Hymns',
     category: 'Religous',
-    time: '09:10 PM - 09:15 PM',
+    time: '09:00 PM - 09:15 PM',
   },
   {
     id: '28',
-    title: 'Seth Main News',
+    title: 'Main News',
     category: 'News',
     time: '09:15 PM - 09:30 PM',
   },
@@ -391,7 +390,7 @@ const Saturday = [
     id: '33',
     title: 'Religous Programs',
     category: 'Entertainment',
-    time: '01:00 AM - 04:59 AM',
+    time: '01:00 AM - 05:00 AM',
   },
 ];
 const Sunday = [
@@ -399,29 +398,29 @@ const Sunday = [
     id: '1',
     title: 'Jaya Mangala Gatha',
     category: 'Religous',
-    time: '5:00 AM - 05:10 AM',
+    time: '05:00 AM - 05:10 AM',
   },
   {
     id: '2',
     title: 'Seth Pirith',
     category: 'Religous',
-    time: '05:11 AM - 05:30 AM',
+    time: '05:10 AM - 05:30 AM',
   },
   {
     id: '3',
     title: 'Catholic Prayers',
     category: 'Religous',
-    time: '05:31 AM - 05:50 AM',
+    time: '05:30 AM - 05:50 AM',
   },
   {
     id: '4',
     title: 'Sadaham Sithuwili',
     category: 'Religous',
-    time: '05:51 AM - 05:59 AM',
+    time: '05:50 AM - 06:00 AM',
   },
   {
     id: '5',
-    title: 'Sr. Selinta Thought for the Day',
+    title: 'Thought for the Day - Sr. Selinta',
     category: 'Religous',
     time: '06:00 AM - 06:10 AM',
   },
@@ -429,7 +428,7 @@ const Sunday = [
     id: '6',
     title: 'Ayobowan Seth',
     category: 'Entertainment',
-    time: '06:11 AM - 07:29 AM',
+    time: '06:10 AM - 07:30 AM',
   },
   {
     id: '7',
@@ -447,20 +446,19 @@ const Sunday = [
     id: '9',
     title: 'Kithunu Gee',
     category: 'Religous',
-    time: '09:01 AM - 10:00 AM',
+    time: '09:00 AM - 10:00 AM',
   },
   {
     id: '10',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '10:01 AM - 11:00 AM',
+    time: '10:00 AM - 11:00 AM',
   },
-
   {
     id: '11',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '11:01 AM - 12:00 PM',
+    time: '11:00 AM - 12:00 PM',
   },
   {
     id: '12',
@@ -488,7 +486,7 @@ const Sunday = [
   },
   {
     id: '16',
-    title: 'Namasthe',
+    title: '70s Plus Chart Show',
     category: 'Entertainment',
     time: '02:00 PM - 03:00 PM',
   },
@@ -496,7 +494,7 @@ const Sunday = [
     id: '17',
     title: 'Dewa Dayawa',
     category: 'Religous',
-    time: '03:00 PM - 03:29 PM',
+    time: '03:00 PM - 03:30 PM',
   },
   {
     id: '18',
@@ -507,7 +505,7 @@ const Sunday = [
   {
     id: '19',
     title: 'Nowina',
-    category: 'News',
+    category: 'Religous',
     time: '04:30 PM - 05:00 PM',
   },
   {
@@ -520,13 +518,13 @@ const Sunday = [
     id: '21',
     title: 'Gee Sandalla',
     category: 'Entertainment',
-    time: '05:06 PM - 06:00 PM',
+    time: '05:05 PM - 06:00 PM',
   },
   {
     id: '22',
     title: 'Seth Evening Request',
     category: 'Entertainment',
-    time: '06:01 PM - 06:59 PM',
+    time: '06:00 PM - 07:00 PM',
   },
   {
     id: '23',
@@ -538,19 +536,19 @@ const Sunday = [
     id: '24',
     title: 'Emmaus',
     category: 'Religous',
-    time: '08:01 PM - 09:00 PM',
+    time: '08:00 PM - 09:00 PM',
   },
   {
     id: '25',
     title: 'Catholic Hymns',
     category: 'Religous',
-    time: '09:10 PM - 09:15 PM',
+    time: '09:00 PM - 09:15 PM',
   },
   {
     id: '26',
-    title: 'Seth Main News',
+    title: 'Main News',
     category: 'News',
-    time: '09:15 PM - 09:25 PM',
+    time: '09:15 PM - 09:30 PM',
   },
   {
     id: '27',
@@ -560,7 +558,7 @@ const Sunday = [
   },
   {
     id: '28',
-    title: 'Night Religous program',
+    title: 'Night Religous Program',
     category: 'Religous',
     time: '10:30 PM - 11:00 PM',
   },
@@ -580,7 +578,7 @@ const Sunday = [
     id: '31',
     title: 'Religous Programs',
     category: 'Entertainment',
-    time: '01:00 AM - 04:59 AM',
+    time: '01:00 AM - 05:00 AM',
   },
 ];
 
