@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    //paddingLeft: 50,
   },
   headerLogo: {width: 130, height: 65, resizeMode: 'contain'},
 
@@ -83,7 +82,7 @@ const MyTabs = () => {
                 colors={[LightTheme.highlight, 'transparent']}
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}
-                style={[styles.headerBg, {paddingTop: 50}]}>
+                style={[styles.headerBg, {alignItems: 'flex-end'}]}>
                 <HeaderLogo />
               </LinearGradient>
             );
