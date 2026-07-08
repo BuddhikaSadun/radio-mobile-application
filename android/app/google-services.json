@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "678774498841",
+    "project_id": "sethfm-f4a9f",
+    "storage_bucket": "sethfm-f4a9f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678774498841:android:69190c1e8942da77c5ec88",
+        "android_client_info": {	
+          "package_name": "seth.fm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDARn2gtr6ivHiBkuTyjIpViUwFVgEtjfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
