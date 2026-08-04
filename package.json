@@ -1,6 +1,6 @@
 {
   "name": "SethFM",
-  "version": "2.0",
+  "version": "2.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -11,8 +11,6 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@payhere/payhere-mobilesdk-reactnative": "^4.0.14",
-    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-firebase/app": "^25.1.0",
     "@react-native-firebase/auth": "^25.1.0",
     "@react-native-firebase/firestore": "^25.1.0",
@@ -23,6 +21,8 @@
     "postinstall-postinstall": "^2.1.0",
     "react": "19.0.0",
     "react-native": "0.79.2",
+    "react-native-date-picker": "^5.0.13",
+    "react-native-element-dropdown": "^2.12.4",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-rename": "^3.2.16",
     "react-native-safe-area-context": "^5.4.1",
