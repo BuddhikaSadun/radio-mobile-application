@@ -6,37 +6,34 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-splash-screen';
+import {enableScreens} from 'react-native-screens';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import {
   Image,
-  View,
   Text,
   useColorScheme,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
   Platform,
 } from 'react-native';
-import logo from './assets/SethFMLogo.png';
-import ContactUs from './TabScreens/ContactUs';
-import Donations from './TabScreens/Donations';
-import LiveRadio from './TabScreens/LiveRadio';
-import Programs from './TabScreens/Programs';
 import {LightTheme} from './constants/theme';
+import logo from './assets/SethFMLogo.png';
+import ContactUs from './TabScreens/ContactUs/ContactUs';
+import LiveRadio from './TabScreens/LiveRadio/LiveRadio';
+import Programs from './TabScreens/Programs/Programs';
 import SettingsNavigator from './TabScreens/Settings/SettingsNavigator';
-import {ONBOARDING_COMPLETE_KEY} from './constants/storageKeys';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import OnboardingScreen from './TabScreens/Onboarding/OnboardingScreen';
 import PrivacyPolicy from './TabScreens/Settings/PrivacyPolicy';
 import RefundPolicy from './TabScreens/Settings/RefundPolicy';
 import TermsConditions from './TabScreens/Settings/TermsConditions';
+import ProgramContribution from './TabScreens/ProgramContribution/ProgramContribution';
 
+enableScreens();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -86,11 +83,15 @@ const HeaderLogo = () => <Image source={logo} style={styles.headerLogo} />;
 
 const SettingsButton = () => {
   const navigation = useNavigation();
+  const colorScheme = useColorScheme();
+
+  const iconColor = colorScheme === 'dark' ? '#FFFFFF' : '#000000';
+
   return (
     <TouchableOpacity
       style={styles.iconButton}
       onPress={() => navigation.navigate('Settings')}>
-      <MaterialCommunityIcons name="cog" size={24} color="black" />
+      <MaterialCommunityIcons name="cog" size={24} color={iconColor} />
     </TouchableOpacity>
   );
 };
@@ -174,8 +175,8 @@ const MyTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Donations"
-        component={Donations}
+        name="Contribution"
+        component={ProgramContribution}
         options={{
           tabBarIcon: ({color, size}) => (
             <FontAwesome5 name="donate" size={20} color={color} />
@@ -188,7 +189,7 @@ const MyTabs = () => {
                   : Colors[colorScheme ?? 'light'].inactive,
                 fontSize: 12,
               }}>
-              Donations
+              Contribution
             </Text>
           ),
         }}
@@ -217,18 +218,12 @@ const MyTabs = () => {
   );
 };
 
-const RootStack = ({
-  initialRouteName,
-}: {
-  initialRouteName: 'Onboarding' | 'Tabs';
-}) => {
+const RootStack = ({initialRouteName}: {initialRouteName: 'Tabs'}) => {
   return (
     <Stack.Navigator
       initialRouteName={initialRouteName}
-      screenOptions={{headerShown: false}} // 👈 add this as a blanket default
-    >
-      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-      <Stack.Screen name="Tabs" component={MyTabs} />
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Tabs" component={MyTabs} options={{title: 'Home'}} />
       <Stack.Screen
         name="TermsConditions"
         component={TermsConditions}
@@ -313,42 +308,14 @@ const RootStack = ({
 };
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
-  const [isCheckingOnboarding, setIsCheckingOnboarding] = useState(true);
-  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false);
 
   useEffect(() => {
-    const checkOnboardingStatus = async () => {
-      try {
-        const value = await AsyncStorage.getItem(ONBOARDING_COMPLETE_KEY);
-        setHasCompletedOnboarding(value === 'true');
-        console.log(value ? value : 'value not found');
-      } catch (error) {
-        // If storage read fails, default to showing onboarding to be safe
-        setHasCompletedOnboarding(false);
-      } finally {
-        setIsCheckingOnboarding(false);
-        SplashScreen.hide();
-      }
-    };
-
-    checkOnboardingStatus();
+    SplashScreen.hide();
   }, []);
-
-  if (isCheckingOnboarding) {
-    // Keep native splash screen visible while we check storage, OR
-    // show a lightweight spinner if your splash hides immediately.
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="orange" />
-      </View>
-    );
-  }
 
   return (
     <NavigationContainer theme={isDarkMode ? DarkTheme : DefaultTheme}>
-      <RootStack
-        initialRouteName={hasCompletedOnboarding ? 'Tabs' : 'Onboarding'}
-      />
+      <RootStack initialRouteName="Tabs" />
     </NavigationContainer>
   );
 }
