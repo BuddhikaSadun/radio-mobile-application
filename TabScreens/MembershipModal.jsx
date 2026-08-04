@@ -27,7 +27,7 @@ const MembershipModal = ({visible, onClose, ...modalProps}) => {
             style={styles.button}
             onPress={() => {
               onClose();
-              navigation.navigate('Donations');
+              navigation.navigate('Memberships');
             }}>
             <Text style={styles.buttonText}>Join with us</Text>
           </Pressable>

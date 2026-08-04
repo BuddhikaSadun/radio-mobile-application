@@ -59,56 +59,65 @@ const OnboardingScreen = () => {
       </View>
 
       <Text style={styles.subtitle}>
-        Before continuing, please review and accept the following policies.
+        Before continuing, please read and accept our{' '}
+        <Text
+          style={styles.link}
+          onPress={() => navigation.navigate('TermsConditions')}>
+          Terms & Conditions
+        </Text>
+        {', '}
+        <Text
+          style={styles.link}
+          onPress={() => navigation.navigate('PrivacyPolicy')}>
+          Privacy Policy
+        </Text>
+        {' and '}
+        <Text
+          style={styles.link}
+          onPress={() => navigation.navigate('RefundPolicy')}>
+          Refund Policy
+        </Text>
+        .
       </Text>
 
-      <View style={styles.checkboxRow}>
-        <TouchableOpacity
-          style={[styles.checkbox, agreeTerms && styles.checkboxChecked]}
-          onPress={() => setAgreeTerms(!agreeTerms)}>
+      <TouchableOpacity
+        style={styles.checkboxRow}
+        activeOpacity={0.7}
+        onPress={() => setAgreeTerms(!agreeTerms)}>
+        <View style={[styles.checkbox, agreeTerms && styles.checkboxChecked]}>
           {agreeTerms && <Ionicons name="checkmark" size={16} color="#fff" />}
-        </TouchableOpacity>
-        <Text style={styles.checkboxText}>
-          I have read and agree to the{' '}
-          <Text
-            style={styles.link}
-            onPress={() => navigation.navigate('TermsConditions')}>
-            Terms & Conditions
-          </Text>
-        </Text>
-      </View>
+        </View>
 
-      <View style={styles.checkboxRow}>
-        <TouchableOpacity
-          style={[styles.checkbox, agreePrivacy && styles.checkboxChecked]}
-          onPress={() => setAgreePrivacy(!agreePrivacy)}>
+        <Text style={styles.checkboxText}>
+          I have read and agree to the Terms & Conditions
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.checkboxRow}
+        activeOpacity={0.7}
+        onPress={() => setAgreePrivacy(!agreePrivacy)}>
+        <View style={[styles.checkbox, agreePrivacy && styles.checkboxChecked]}>
           {agreePrivacy && <Ionicons name="checkmark" size={16} color="#fff" />}
-        </TouchableOpacity>
-        <Text style={styles.checkboxText}>
-          I have read and agree to the{' '}
-          <Text
-            style={styles.link}
-            onPress={() => navigation.navigate('PrivacyPolicy')}>
-            Privacy Policy
-          </Text>
-        </Text>
-      </View>
+        </View>
 
-      <View style={styles.checkboxRow}>
-        <TouchableOpacity
-          style={[styles.checkbox, agreeRefund && styles.checkboxChecked]}
-          onPress={() => setAgreeRefund(!agreeRefund)}>
-          {agreeRefund && <Ionicons name="checkmark" size={16} color="#fff" />}
-        </TouchableOpacity>
         <Text style={styles.checkboxText}>
-          I have read and agree to the{' '}
-          <Text
-            style={styles.link}
-            onPress={() => navigation.navigate('RefundPolicy')}>
-            Refund Policy
-          </Text>
+          I have read and agree to the Privacy Policy
         </Text>
-      </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.checkboxRow}
+        activeOpacity={0.7}
+        onPress={() => setAgreeRefund(!agreeRefund)}>
+        <View style={[styles.checkbox, agreeRefund && styles.checkboxChecked]}>
+          {agreeRefund && <Ionicons name="checkmark" size={16} color="#fff" />}
+        </View>
+
+        <Text style={styles.checkboxText}>
+          I have read and agree to the Refund Policy
+        </Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
         activeOpacity={0.85}
@@ -166,7 +175,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 15,
     fontWeight: '600',
-    color: PRIMARY,
+    color: 'black',
     textAlign: 'center',
   },
 
