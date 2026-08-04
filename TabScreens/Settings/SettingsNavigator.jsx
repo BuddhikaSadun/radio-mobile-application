@@ -6,6 +6,8 @@ import TermsConditions from './TermsConditions';
 import LinearGradient from 'react-native-linear-gradient';
 import {LightTheme} from '../../constants/theme';
 import {StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const SettingsStack = createNativeStackNavigator();
 
 const SettingsNavigator = () => {
@@ -27,7 +29,18 @@ const SettingsNavigator = () => {
       <SettingsStack.Screen
         name="SettingsHome"
         component={SettingsScreen}
-        options={{headerTitle: 'Settings'}}
+        options={({navigation}) => ({
+          headerTitle: 'Settings',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.getParent()?.goBack()}>
+              <MaterialCommunityIcons
+                name="chevron-left"
+                size={28}
+                color="black"
+              />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <SettingsStack.Screen
         name="PrivacyPolicy"

@@ -12,7 +12,9 @@ const RefundPolicy = () => {
       style={[styles.container, themeStyles.background]}
       contentContainerStyle={styles.content}>
       <Text style={[styles.intro, themeStyles.body]}>{refundPolicy.intro}</Text>
-
+      <Text style={[styles.paragraph, themeStyles.body]}>
+        {refundPolicy.lastUpdated}
+      </Text>
       {refundPolicy.sections.map((section, index) => (
         <View key={index} style={styles.section}>
           <Text style={[styles.heading, themeStyles.heading]}>

@@ -17,6 +17,10 @@ const TermsAndConditions = () => {
         {termsAndConditions.intro}
       </Text>
 
+      <Text style={[styles.paragraph, themeStyles.body]}>
+        {termsAndConditions.lastUpdated}
+      </Text>
+
       {termsAndConditions.sections.map((section, index) => (
         <View key={index} style={styles.section}>
           <Text style={[styles.heading, themeStyles.heading]}>

@@ -20,6 +20,10 @@ const PrivacyPolicy = () => {
         {privacyPolicy.intro}
       </Text>
 
+      <Text style={[styles.paragraph, themeStyles.body]}>
+        {privacyPolicy.lastUpdated}
+      </Text>
+
       {privacyPolicy.sections.map((section, index) => (
         <View key={index} style={styles.section}>
           <Text style={[styles.heading, themeStyles.heading]}>
