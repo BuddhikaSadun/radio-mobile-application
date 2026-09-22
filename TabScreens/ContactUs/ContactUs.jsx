@@ -17,7 +17,6 @@ import Typography from '../../constants/Typography';
 import {LightTheme, DarkTheme} from '../../constants/theme';
 import Footer from '../Footer';
 import SocialMedia from '../SocialMedia';
-import FeedbackForm from './FeedbackForm';
 
 export default function ContactUs() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -511,6 +510,52 @@ export default function ContactUs() {
                 },
               ]}>
               +94 75 864 0555
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable
+          android_ripple={{color: '#ccc'}}
+          onPress={() => Linking.openURL('tel:+94758640555')}
+          style={styles.infoSection}>
+          <View
+            style={[
+              styles.iconStyle,
+              {
+                backgroundColor: isDarkMode
+                  ? DarkTheme.iconBG
+                  : LightTheme.iconBG,
+              },
+            ]}>
+            <FontAwesome5
+              name="phone"
+              size={20}
+              style={{transform: [{scaleX: -1}]}}
+              color={isDarkMode ? DarkTheme.iconMain : LightTheme.iconMain}
+            />
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text
+              style={[
+                styles.primaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              Malki
+            </Text>
+            <Text
+              style={[
+                styles.secondaryText,
+                {
+                  color: isDarkMode
+                    ? DarkTheme.primaryText
+                    : LightTheme.primaryText,
+                },
+              ]}>
+              +94 74 233 5349
             </Text>
           </View>
         </Pressable>
